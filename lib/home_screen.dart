@@ -16,23 +16,35 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text("GetX Learning"),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            height: Get.height * 0.3,
-            width: Get.width * 0.8,
-            color: Colors.red,
-            child: const Center(
-              child: Text("Center"),
-            ),
+          ListTile(
+            title: Text("message".tr),
+            subtitle: Text("name".tr),
           ),
-          Container(
-            height: Get.height * 0.3,
-            width: Get.width * 0.8,
-            color: Colors.green,
-            child: const Center(
-              child: Text("Center"),
-            ),
-          ),
+          const SizedBox(height: 50),
+          Row(
+            children: [
+              OutlinedButton(
+                onPressed: () {
+                  Get.updateLocale(
+                    const Locale("en", "US"),
+                  );
+                },
+                child: const Text("English"),
+              ),
+              const SizedBox(width: 20),
+              OutlinedButton(
+                onPressed: () {
+                  Get.updateLocale(
+                    const Locale("ur", "PK"),
+                  );
+                },
+                child: const Text("Urdu"),
+              ),
+            ],
+          )
         ],
       ),
     );
