@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_getx/counter_controller.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -9,43 +10,27 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final CounterController controller = Get.put(CounterController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("GetX Learning"),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ListTile(
-            title: Text("message".tr),
-            subtitle: Text("name".tr),
-          ),
-          const SizedBox(height: 50),
-          Row(
-            children: [
-              OutlinedButton(
-                onPressed: () {
-                  Get.updateLocale(
-                    const Locale("en", "US"),
-                  );
-                },
-                child: const Text("English"),
-              ),
-              const SizedBox(width: 20),
-              OutlinedButton(
-                onPressed: () {
-                  Get.updateLocale(
-                    const Locale("ur", "PK"),
-                  );
-                },
-                child: const Text("Urdu"),
-              ),
-            ],
-          )
-        ],
+      body: Center(
+        child: Obx(() {
+          return Text(
+            controller.counter.toString(),
+            style: const TextStyle(fontSize: 60),
+          );
+        }),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          controller.incrementCounter();
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
