@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_getx/notification_controller.dart';
+import 'package:flutter_getx/favorite_controller.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,8 +10,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  NotificationsController notificationsController = Get.put(
-    NotificationsController(),
+  FavoriteController favoriteController = Get.put(
+    FavoriteController(),
   );
 
   @override
@@ -20,23 +20,34 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text("GetX Learning"),
       ),
-      body: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text("Notifications"),
-              Obx(
-                () => Switch(
-                  value: notificationsController.notifications.value,
-                  onChanged: (value) {
-                    notificationsController.setNotifications(value);
-                  },
+      body: ListView.builder(
+        itemCount: favoriteController.fruitsList.length,
+        itemBuilder: (context, index) {
+          return Card(
+            child: ListTile(
+              onTap: () {
+                if (favoriteController.tempFruitsList
+                    .contains(favoriteController.fruitsList[index])) {
+                  favoriteController
+                      .removeFromFavorite(favoriteController.fruitsList[index]);
+                } else {
+                  favoriteController
+                      .addToFavorite(favoriteController.fruitsList[index]);
+                }
+              },
+              title: Text(favoriteController.fruitsList[index]),
+              trailing: Obx(
+                () => Icon(
+                  Icons.favorite,
+                  color: favoriteController.tempFruitsList
+                          .contains(favoriteController.fruitsList[index])
+                      ? Colors.red
+                      : Colors.white,
                 ),
               ),
-            ],
-          )
-        ],
+            ),
+          );
+        },
       ),
     );
   }
