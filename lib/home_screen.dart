@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_getx/screen_one.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,9 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
           Center(
             child: TextButton(
               onPressed: () {
-                Get.to(
-                  () => const ScreenOne(name: "Ammar"),
-                );
+                // Get.to(() => const ScreenOne(name: "Ammar"));
+                Get.toNamed("/screenOne", arguments: ["Ammar", "Hello"]);
               },
               child: const Text("Go to next screen"),
             ),
