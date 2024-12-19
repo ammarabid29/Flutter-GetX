@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_getx/counter_controller.dart';
+import 'package:flutter_getx/opacity_controller.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,7 +10,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final CounterController controller = Get.put(CounterController());
+  OpacityController opacityController = Get.put(OpacityController());
 
   @override
   Widget build(BuildContext context) {
@@ -18,19 +18,24 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text("GetX Learning"),
       ),
-      body: Center(
-        child: Obx(() {
-          return Text(
-            controller.counter.toString(),
-            style: const TextStyle(fontSize: 60),
-          );
-        }),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          controller.incrementCounter();
-        },
-        child: const Icon(Icons.add),
+      body: Column(
+        children: [
+          Obx(
+            () => Container(
+              height: 200,
+              width: 200,
+              color: Colors.red.withOpacity(opacityController.opacity.value),
+            ),
+          ),
+          Obx(
+            () => Slider(
+              value: opacityController.opacity.value,
+              onChanged: (value) {
+                opacityController.setOpaacity(value);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
