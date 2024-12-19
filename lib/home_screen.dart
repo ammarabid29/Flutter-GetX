@@ -1,7 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_getx/image_picker_controller.dart';
+import 'package:flutter_getx/login_controller.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,8 +10,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  ImagePickerController imagePickerController = Get.put(
-    ImagePickerController(),
+  LoginController loginController = Get.put(
+    LoginController(),
   );
 
   @override
@@ -22,25 +20,36 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text("GetX Learning"),
       ),
-      body: Obx(
-        () => Column(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Center(
-              child: CircleAvatar(
-                radius: 40,
-                backgroundImage: imagePickerController.imagePath.isNotEmpty
-                    ? FileImage(
-                        File(imagePickerController.imagePath.toString()))
-                    : null,
-              ),
+            TextFormField(
+              controller: loginController.emailController.value,
+              decoration: const InputDecoration(hintText: "Email"),
             ),
-            TextButton(
-              onPressed: () {
-                imagePickerController.getImage();
-              },
-              child: const Text("Pick Image"),
+            TextFormField(
+              controller: loginController.passwordController.value,
+              decoration: const InputDecoration(hintText: "Password"),
+            ),
+            const SizedBox(height: 50),
+            Obx(
+              () => InkWell(
+                onTap: () {
+                  loginController.loginApi();
+                },
+                child: Container(
+                  height: 45,
+                  color: Colors.grey,
+                  child: Center(
+                    child: loginController.loading.value
+                        ? const CircularProgressIndicator()
+                        : const Text("Login"),
+                  ),
+                ),
+              ),
             ),
           ],
         ),
