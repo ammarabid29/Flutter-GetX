@@ -16,16 +16,21 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text("GetX Learning"),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(
-            child: TextButton(
-              onPressed: () {
-                // Get.to(() => const ScreenOne(name: "Ammar"));
-                Get.toNamed("/screenOne", arguments: ["Ammar", "Hello"]);
-              },
-              child: const Text("Go to next screen"),
+          Container(
+            height: Get.height * 0.3,
+            width: Get.width * 0.8,
+            color: Colors.red,
+            child: const Center(
+              child: Text("Center"),
+            ),
+          ),
+          Container(
+            height: Get.height * 0.3,
+            width: Get.width * 0.8,
+            color: Colors.green,
+            child: const Center(
+              child: Text("Center"),
             ),
           ),
         ],
